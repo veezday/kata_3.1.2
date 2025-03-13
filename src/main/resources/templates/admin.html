@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>Admin</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="table">
+            <div class="row" id="header">
+                <div class="cell">ID</div>
+                <div class="cell">Username</div>
+                <div class="cell">LastName</div>
+                <div class="cell">Password</div>
+                <div class="cell">Email</div>
+                <div class="cell">Role</div>
+                <div class="cell">Action</div>
+            </div>
+            <form class="row" action="/admin/delete" method="post" th:each="user : ${users}">
+                <div class="cell" th:text="${user.getId()}"></div>
+                <div class="cell" th:text="${user.getUsername()}"></div>
+                <div class="cell" th:text="${user.getSurname()}"></div>
+                <div class="cell" th:text="${user.getPassword()}"></div>
+                <div class="cell" th:text="${user.getEmail()}"></div>
+                <div class="cell" th:text="${user.getAuthorities().toString()}"></div>
+                <input type="hidden" name="id" th:value="${user.getId()}">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Delete">
+            </form>
+
+            <form class="row" action="/admin/create" method="post">
+                <div class="cell" style="padding: 0 8px"><p>id</p></div>
+                <input class="cell" type="text" name="username" placeholder="username" required/>
+                <input class="cell" type="text" name="surname" placeholder="surname"/>
+                <input class="cell" type="text" name="password" placeholder="password" required/>
+                <input class="cell" type="text" name="email" placeholder="email"/>
+                <select class="cell" name="authorities" multiple size="2" required>
+                    <option value="ADMIN">USER</option>
+                    <option value="USER">ADMIN</option>
+                </select>
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Add user"/>
+            </form>
+
+            <form class="row" action="/admin/update" method="post">
+                <input class="cell" type="text" name="id" placeholder="id" required/>
+                <input class="cell" type="text" name="username" placeholder="username" required/>
+                <input class="cell" type="text" name="surname" placeholder="surname"/>
+                <input class="cell" type="text" name="password" placeholder="password" required/>
+                <input class="cell" type="text" name="email" placeholder="email"/>
+                <select class="cell" name="authorities" multiple size="2" required>
+                    <option value="ADMIN">USER</option>
+                    <option value="USER">ADMIN</option>
+                </select>
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Update user"/>
+            </form>
+
+            <form class="row" action="/admin" method="get">
+                <input class="cell" type="text" name="id" placeholder="id">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Find user">
+            </form>
+
+            <form class="row" action="/admin/init" method="post">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Fill table"/>
+            </form>
+
+            <form class="row" action="/logout" method="post">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Logout"/>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

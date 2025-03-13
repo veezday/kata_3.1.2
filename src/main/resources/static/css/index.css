@@ -1,0 +1,40 @@
+body {
+    background-color: lightcyan;
+}
+
+input[type="submit"] {
+    background-color: aquamarine;
+}
+select {
+    overflow-y: auto;
+}
+
+.parent, .table, .cell, .row {
+    display: flex;
+}
+
+.parent {
+    justify-content: center;
+}
+
+.table {
+    flex-direction: column;
+    width: fit-content;
+    background-color: lightgoldenrodyellow;
+}
+
+.cell {
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 8px;
+    font-size: medium;
+    border: 1px solid #000000;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+}
+
+#header {
+    background-color: lightseagreen;
+    font-weight: bold;
+}

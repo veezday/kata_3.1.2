@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>User</title>
 </head>
 <body>
-<h1>Welcome to Index PAGE!</h1>
+    <div class="parent">
+        <div class="table">
+            <div class="row" id="header">
+                <div class="cell">ID</div>
+                <div class="cell">Username</div>
+                <div class="cell">LastName</div>
+                <div class="cell">Password</div>
+                <div class="cell">Email</div>
+                <div class="cell">Role</div>
+            </div>
 
+            <div class="row">
+                <div class="cell" th:text="${user.getId()}"></div>
+                <div class="cell" th:text="${user.getUsername()}"></div>
+                <div class="cell" th:text="${user.getSurname()}"></div>
+                <div class="cell" th:text="${user.getPassword()}"></div>
+                <div class="cell" th:text="${user.getEmail()}"></div>
+                <div class="cell" th:text="${user.getAuthorities().toString()}"></div>
+            </div>
 
+            <form class="row" action="/logout" method="post">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <input class="cell" type="submit" value="Logout"/>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
