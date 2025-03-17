@@ -1,13 +1,9 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import jakarta.annotation.security.RolesAllowed;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -26,13 +22,11 @@ public class AdminController {
     }
 
     @GetMapping
-    public String getUsers(@RequestParam(required = false) Long id, Model model) {
-        User user = null;
-        if (id != null) {
-            user = userService.findById(id).orElse(null);
-        }
-
-        model.addAttribute("users", user == null ? userService.findAll() : user);
+    public String getUsers(@AuthenticationPrincipal User admin, Model model) {
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("admin", admin);
+        model.addAttribute("ROLE_USER", Role.USER);
+        model.addAttribute("ROLE_ADMIN", Role.ADMIN);
         return "admin";
     }
 
@@ -80,13 +74,13 @@ public class AdminController {
     }
 
     @PostMapping("/create")
-    public RedirectView addUser(@RequestParam String username,
+    public RedirectView addUser(@RequestParam String name,
                                 @RequestParam(required = false) String surname,
                                 @RequestParam String password,
                                 @RequestParam(required = false) String email,
                                 @RequestParam List<Role> authorities) {
         userService.save(User.builder()
-                .username(username)
+                .username(name)
                 .surname(surname)
                 .password(password)
                 .email(email)
