@@ -14,7 +14,7 @@ spring:
             format_sql: true
             highlight_sql: true
             current_session_context_class: managed
-            hbm2ddl.auto: update
+            hbm2ddl.auto: create-drop
 
 logging.level:
     org.springframework: info
