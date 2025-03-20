@@ -2,8 +2,8 @@ input[readonly] {
     background-color: #e9ecef;
 }
 
-#sidebar, #createForm, #editForm, #deleteForm {
-    width: 280px
+.fix-size, input {
+    max-width: 280px
 }
 
 #btn {

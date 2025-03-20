@@ -54,5 +54,11 @@ public class UserService implements UserDetailsService {
                         .authority(Role.ADMIN)
                         .build()
         );
+        userRepository.save(User.builder()
+                .username("user")
+                .password("{noop}user")
+                .authority(Role.USER)
+                .build()
+        );
     }
 }
